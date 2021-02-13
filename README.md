@@ -1,6 +1,6 @@
-# ethereum-rpc-json
+# vapory-rpc-json
 
-JSON file of all ethereum's rpc methods supported by parity
+JSON file of all vapory's rpc methods supported by tetcoin
 
 ## interfaces
 
