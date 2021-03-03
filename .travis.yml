@@ -6,7 +6,7 @@ node_js:
 env:
   global:
     - CXX=g++-4.8
-    - REPO_SLUG=ethcore/eth-node-status-page
+    - REPO_SLUG=openvapory/vap-node-status-page
     # SAUCE_USERNAME (required by sauce-connect and nightwatch)
     - secure: aoMJxkSNvND6fkBk3R+Ay7yiOkPvmi8dhkOATNBszZ3k1gJdhLjbT4vFSSmQdK3fy99CSzZenne+MZUi4sG5xchtAo+NJluLUnpZ5Zly4bN/vM81yqTgq4SnMXQhHK9uiBD36Dbw9lGqT22QxYzevN0x/4Z5NfpZvxIszqUkhrD0PP24LL5mAVwMW5t4gttUJ1T7jaEsSEjf+nrw6H97jSQEDAGvTSkb8xzj7ctNP6kbpAuoeG7d+HenfnkEji64Ajv9fuFDywzwKLFisM4+ODp21RonCpR1MVDMtTt3VOpZchMgVF9IwFj8wMrE5pqk8ieKeR48e9QO/YxcVOUcT1KKNc4BuB8AqGX7v5pkktFC8Pox7qXOiLvfklnhEyYNjFA4UWZUxRYvRIgQpwWssiulWm8XL86QF/4pnyoG653PV+jN1XQrERdXcSuahiYDGeggRJGaRuqWs+xK1XuW1Qsr5EZSOEBuoy+TsWJ3pE1xewoAU+PD7L4n3QOspOBSwVAZk8qZzl/KYnJ2oujjNOaonxovFEecll4RIkN9rovMADZsKRHNPsM3Uw87gcWyWM9zg8Mb6uR8PqBGUsHTy/qE7LUBYi7RVspJHVQ5NODS8snK53miC3Ysyv880YxhRouLT1NJ2n3CHNB3BITLt4Q3aexIMMPFW4E0jPlPeYQ=
     # SAUCE_ACCESS_KEY (required by sauce-connect and nightwatch)

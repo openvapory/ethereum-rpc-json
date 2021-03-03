@@ -1,7 +1,7 @@
 {
-  "name": "ethereum-rpc-json",
+  "name": "vapory-rpc-json",
   "version": "0.0.1",
-  "description": "JSON file of all ethereum's rpc methods supported by parity",
+  "description": "JSON file of all vapory's rpc methods supported by tetsy",
   "main": "index.js",
   "jsnext:main": "lib/index.js",
   "scripts": {
@@ -16,20 +16,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethcore/ethereum-rpc-json.git"
+    "url": "git+https://github.com/openvapory/vapory-rpc-json.git"
   },
   "keywords": [
-    "ethereum",
+    "vapory",
     "rpc",
-    "parity",
+    "tetsy",
     "json-rpc"
   ],
-  "author": "ethcore team",
+  "author": "vapcore team",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/ethcore/ethereum-rpc-json/issues"
+    "url": "https://github.com/openvapory/vapory-rpc-json/issues"
   },
-  "homepage": "https://github.com/ethcore/ethereum-rpc-json#readme",
+  "homepage": "https://github.com/openvapory/vapory-rpc-json#readme",
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.1",

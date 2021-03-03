@@ -43,22 +43,22 @@
       "outputFormatter": "utils.toDecimal"
     },
     {
-      "name": "eth_protocolVersion",
-      "desc": "Returns the current ethereum protocol version.",
+      "name": "vap_protocolVersion",
+      "desc": "Returns the current vapory protocol version.",
       "params": [],
-      "returns": "`String` - The current ethereum protocol version",
+      "returns": "`String` - The current vapory protocol version",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_syncing",
+      "name": "vap_syncing",
       "desc": "Returns an object with data about the sync status or `false`.",
       "params": [],
       "returns": {
         "description": "`Object|Boolean`, An object with sync status data or `FALSE`, when not syncing:",
         "details": {
           "startingBlock": "`QUANTITY` - The block at which the import started (will only be reset, after the sync reached his head)",
-          "currentBlock": "`QUANTITY` - The current block, same as eth_blockNumber",
+          "currentBlock": "`QUANTITY` - The current block, same as vap_blockNumber",
           "highestBlock": "`QUANTITY` - The estimated highest block"
         }
       },
@@ -66,7 +66,7 @@
       "outputFormatter": "outputSyncingFormatter"
     },
     {
-      "name": "eth_coinbase",
+      "name": "vap_coinbase",
       "desc": "Returns the client coinbase address.",
       "params": [],
       "returns": "`DATA`, 20 bytes - the current coinbase address.",
@@ -74,7 +74,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_mining",
+      "name": "vap_mining",
       "desc": "Returns `true` if client is actively mining new blocks.",
       "params": [],
       "returns": "`Boolean` - returns `true` of the client is mining, otherwise `false`.",
@@ -82,7 +82,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_hashrate",
+      "name": "vap_hashrate",
       "desc": "Returns the number of hashes per second that the node is mining with.",
       "params": [],
       "returns": "`QUANTITY` - number of hashes per second.",
@@ -90,7 +90,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_gasPrice",
+      "name": "vap_gasPrice",
       "desc": "Returns the current price per gas in wei.",
       "params": [],
       "returns": "`QUANTITY` - integer of the current gas price in wei.",
@@ -98,7 +98,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_accounts",
+      "name": "vap_accounts",
       "desc": "Returns a list of addresses owned by client.",
       "params": [],
       "returns": "`Array of DATA`, 20 Bytes - addresses owned by the client.",
@@ -106,7 +106,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_blockNumber",
+      "name": "vap_blockNumber",
       "desc": "Returns the number of most recent block.",
       "params": [],
       "returns": "`QUANTITY` - integer of the current block number the client is on.",
@@ -114,7 +114,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getBalance",
+      "name": "vap_getBalance",
       "desc": "Returns the balance of the account of given address.",
       "params": [
         "`DATA`, 20 Bytes - address to check for balance.",
@@ -128,7 +128,7 @@
       "outputFormatter": "outputBigNumberFormatter"
     },
     {
-      "name": "eth_getStorageAt",
+      "name": "vap_getStorageAt",
       "desc": "Returns the value from a storage position at a given address.",
       "params": [
         "`DATA`, 20 Bytes - address of the storage.",
@@ -144,7 +144,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getTransactionCount",
+      "name": "vap_getTransactionCount",
       "desc": "Returns the number of transactions *sent* from an address.",
       "params": [
         "`DATA`, 20 Bytes - address.",
@@ -158,7 +158,7 @@
       "outputFormatter": "utils.toDecimal"
     },
     {
-      "name": "eth_getBlockTransactionCountByHash",
+      "name": "vap_getBlockTransactionCountByHash",
       "desc": "Returns the number of transactions in a block from a block matching the given block hash.",
       "params": [
         "`DATA`, 32 Bytes - hash of a block"
@@ -168,7 +168,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getBlockTransactionCountByNumber",
+      "name": "vap_getBlockTransactionCountByNumber",
       "desc": "Returns the number of transactions in a block from a block matching the given block number.",
       "params": [
         "`QUANTITY|TAG` - integer of a block number, or the string `\"earliest\"`, `\"latest\"` or `\"pending\"`, as in the [default block parameter](#the-default-block-parameter)."
@@ -178,7 +178,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getUncleCountByBlockHash",
+      "name": "vap_getUncleCountByBlockHash",
       "desc": "Returns the number of uncles in a block from a block matching the given block hash.",
       "params": [
         "`DATA`, 32 Bytes - hash of a block"
@@ -188,7 +188,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getUncleCountByBlockNumber",
+      "name": "vap_getUncleCountByBlockNumber",
       "desc": "Returns the number of uncles in a block from a block matching the given block number.",
       "params": [
         "`QUANTITY` - integer of a block number, or the string \"latest\", \"earliest\" or \"pending\", see the [default block parameter](#the-default-block-parameter)"
@@ -198,7 +198,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getCode",
+      "name": "vap_getCode",
       "desc": "Returns code at a given address.",
       "params": [
         "`DATA`, 20 Bytes - address",
@@ -212,7 +212,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_sign",
+      "name": "vap_sign",
       "desc": "Signs data with a given address.\n**Note** the address to sign must be unlocked.",
       "params": [
         "`DATA`, 20 Bytes - address",
@@ -226,7 +226,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_sendTransaction",
+      "name": "vap_sendTransaction",
       "desc": "Creates new message call transaction or a contract creation, if the data field contains code.",
       "params": [
         {
@@ -237,7 +237,7 @@
             "gas": "`QUANTITY`  - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.",
             "gasPrice": "`QUANTITY`  - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas",
             "value": "`QUANTITY`  - (optional) Integer of the value send with this transaction",
-            "data": "`DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)",
+            "data": "`DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)",
             "nonce": "`QUANTITY`  - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce."
           }
         }
@@ -249,7 +249,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_sendRawTransaction",
+      "name": "vap_sendRawTransaction",
       "desc": "Creates new message call transaction or a contract creation for signed transactions.",
       "params": [
         "`DATA`, The signed transaction data."
@@ -261,7 +261,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_call",
+      "name": "vap_call",
       "desc": "Executes a new message call immediately without creating a transaction on the block chain.",
       "params": [
         {
@@ -269,10 +269,10 @@
           "details": {
             "from": "`DATA`, 20 Bytes - (optional) The address the transaction is send from.",
             "to": "`DATA`, 20 Bytes  - The address the transaction is directed to.",
-            "gas": "`QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.",
+            "gas": "`QUANTITY`  - (optional) Integer of the gas provided for the transaction execution. vap_call consumes zero gas, but this parameter may be needed by some executions.",
             "gasPrice": "`QUANTITY`  - (optional) Integer of the gasPrice used for each paid gas",
             "value": "`QUANTITY`  - (optional) Integer of the value send with this transaction",
-            "data": "`DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)"
+            "data": "`DATA`  - (optional) Hash of the method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)"
           }
         },
         "`QUANTITY|TAG` - integer block number, or the string `\"latest\"`, `\"earliest\"` or `\"pending\"`, see the [default block parameter](#the-default-block-parameter)"
@@ -285,7 +285,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_estimateGas",
+      "name": "vap_estimateGas",
       "desc": "Makes a call or transaction, which won't be added to the blockchain and returns the used gas, which can be used for estimating the used gas.",
       "params": [],
       "returns": "`QUANTITY` - the amount of gas used.",
@@ -295,7 +295,7 @@
       "outputFormatter": "utils.toDecimal"
     },
     {
-      "name": "eth_getBlockByHash",
+      "name": "vap_getBlockByHash",
       "desc": "Returns information about a block by hash.",
       "params": [
         "`DATA`, 32 Bytes - Hash of a block.",
@@ -329,18 +329,18 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getBlockByNumber",
+      "name": "vap_getBlockByNumber",
       "desc": "Returns information about a block by block number.",
       "params": [
         "`QUANTITY|TAG` - integer of a block number, or the string `\"earliest\"`, `\"latest\"` or `\"pending\"`, as in the [default block parameter](#the-default-block-parameter).",
         "`Boolean` - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions."
       ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getTransactionByHash",
+      "name": "vap_getTransactionByHash",
       "desc": "Returns the information about a transaction requested by transaction hash.",
       "params": [
         "`DATA`, 32 Bytes - hash of a transaction"
@@ -365,29 +365,29 @@
       "outputFormatter": "outputTransactionFormatter"
     },
     {
-      "name": "eth_getTransactionByBlockHashAndIndex",
+      "name": "vap_getTransactionByBlockHashAndIndex",
       "desc": "Returns information about a transaction by block hash and transaction index position.",
       "params": [
         "`DATA`, 32 Bytes - hash of a block.",
         "`QUANTITY` - integer of the transaction index position."
       ],
-      "returns": "See [eth_getBlockByHash](#eth_gettransactionbyhash)",
+      "returns": "See [vap_getBlockByHash](#vap_gettransactionbyhash)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getTransactionByBlockNumberAndIndex",
+      "name": "vap_getTransactionByBlockNumberAndIndex",
       "desc": "Returns information about a transaction by block number and transaction index position.",
       "params": [
         "`QUANTITY|TAG` - a block number, or the string `\"earliest\"`, `\"latest\"` or `\"pending\"`, as in the [default block parameter](#the-default-block-parameter).",
         "`QUANTITY` - the transaction index position."
       ],
-      "returns": "See [eth_getBlockByHash](#eth_gettransactionbyhash)",
+      "returns": "See [vap_getBlockByHash](#vap_gettransactionbyhash)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getTransactionReceipt",
+      "name": "vap_getTransactionReceipt",
       "desc": "Returns the receipt of a transaction by transaction hash.\n**Note** That the receipt is not available for pending transactions.",
       "params": [
         "`DATA`, 32 Bytes - hash of a transaction"
@@ -409,29 +409,29 @@
       "outputFormatter": "outputTransactionReceiptFormatter"
     },
     {
-      "name": "eth_getUncleByBlockHashAndIndex",
+      "name": "vap_getUncleByBlockHashAndIndex",
       "desc": "Returns information about a uncle of a block by hash and uncle index position.",
       "params": [
         "`DATA`, 32 Bytes - hash a block.",
         "`QUANTITY` - the uncle's index position."
       ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getUncleByBlockNumberAndIndex",
+      "name": "vap_getUncleByBlockNumberAndIndex",
       "desc": "Returns information about a uncle of a block by number and uncle index position.",
       "params": [
         "`QUANTITY|TAG` - a block number, or the string `\"earliest\"`, `\"latest\"` or `\"pending\"`, as in the [default block parameter](#the-default-block-parameter).",
         "`QUANTITY` - the uncle's index position."
       ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getCompilers",
+      "name": "vap_getCompilers",
       "desc": "Returns a list of available compilers in the client.",
       "params": [],
       "returns": "`Array` - Array of available compilers.",
@@ -439,7 +439,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_compileSolidity",
+      "name": "vap_compileSolidity",
       "desc": "Returns compiled solidity code.",
       "params": [
         "`String` - The source code."
@@ -449,7 +449,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_compileLLL",
+      "name": "vap_compileLLL",
       "desc": "Returns compiled LLL code.",
       "params": [
         "`String` - The source code."
@@ -459,7 +459,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_compileSerpent",
+      "name": "vap_compileSerpent",
       "desc": "Returns compiled serpent code.",
       "params": [
         "`String` - The source code."
@@ -469,8 +469,8 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_newFilter",
-      "desc": "Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
+      "name": "vap_newFilter",
+      "desc": "Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
       "params": [],
       "returns": {
         "description": "1. `Object` - The filter options:",
@@ -485,24 +485,24 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_newBlockFilter",
-      "desc": "Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
+      "name": "vap_newBlockFilter",
+      "desc": "Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
       "params": [],
       "returns": "`QUANTITY` - A filter id.",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_newPendingTransactionFilter",
-      "desc": "Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
+      "name": "vap_newPendingTransactionFilter",
+      "desc": "Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
       "params": [],
       "returns": "`QUANTITY` - A filter id.",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_uninstallFilter",
-      "desc": "Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren't requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.",
+      "name": "vap_uninstallFilter",
+      "desc": "Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren't requested with [vap_getFilterChanges](#vap_getfilterchanges) for a period of time.",
       "params": [
         "`QUANTITY` - The filter id."
       ],
@@ -511,7 +511,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getFilterChanges",
+      "name": "vap_getFilterChanges",
       "desc": "Polling method for a filter, which returns an array of logs which occurred since last poll.",
       "params": [
         "`QUANTITY` - the filter id."
@@ -521,30 +521,30 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getFilterLogs",
+      "name": "vap_getFilterLogs",
       "desc": "Returns an array of all logs matching filter with given id.",
       "params": [
         "`QUANTITY` - The filter id."
       ],
-      "returns": "See [eth_getFilterChanges](#eth_getfilterchanges)",
+      "returns": "See [vap_getFilterChanges](#vap_getfilterchanges)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getLogs",
+      "name": "vap_getLogs",
       "desc": "Returns an array of all logs matching a given filter object.",
       "params": [
         {
-          "description": "`Object` - the filter object, see [eth_newFilter parameters](#eth_newfilter).",
+          "description": "`Object` - the filter object, see [vap_newFilter parameters](#vap_newfilter).",
           "details": {}
         }
       ],
-      "returns": "See [eth_getFilterChanges](#eth_getfilterchanges)",
+      "returns": "See [vap_getFilterChanges](#vap_getfilterchanges)",
       "inputFormatters": [],
       "outputFormatter": null
     },
     {
-      "name": "eth_getWork",
+      "name": "vap_getWork",
       "desc": "Returns the hash of the current block, the seedHash, and the boundary condition to be met (\"target\").",
       "params": [],
       "returns": "`Array` - Array with the following properties:",
@@ -552,7 +552,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_submitWork",
+      "name": "vap_submitWork",
       "desc": "Used for submitting a proof-of-work solution.",
       "params": [
         "`DATA`, 8 Bytes - The nonce found (64 bits)",
@@ -564,7 +564,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_submitHashrate",
+      "name": "vap_submitHashrate",
       "desc": "Used for submitting mining hashrate.",
       "params": [
         "`Hashrate`, a hexadecimal string representation (32 bytes) of the hash rate ",
@@ -733,7 +733,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_pendingTransactions",
+      "name": "vap_pendingTransactions",
       "desc": "?",
       "params": [],
       "returns": "`Boolean` - whether the call was successful",
@@ -741,7 +741,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_flush",
+      "name": "vap_flush",
       "desc": "?",
       "params": [],
       "returns": "`Boolean` - whether the call was successful",
@@ -749,7 +749,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_newFilterEx",
+      "name": "vap_newFilterEx",
       "desc": "?",
       "params": [
         ""
@@ -759,7 +759,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getFilterChangesEx",
+      "name": "vap_getFilterChangesEx",
       "desc": "?",
       "params": [
         ""
@@ -769,7 +769,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getFilterLogsEx",
+      "name": "vap_getFilterLogsEx",
       "desc": "?",
       "params": [
         ""
@@ -779,7 +779,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_getLogsEx",
+      "name": "vap_getLogsEx",
       "desc": "?",
       "params": [
         "?"
@@ -789,7 +789,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_register",
+      "name": "vap_register",
       "desc": "?",
       "params": [
         "?"
@@ -799,7 +799,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_unregister",
+      "name": "vap_unregister",
       "desc": "?",
       "params": [
         "?"
@@ -809,7 +809,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_fetchQueuedTransactions",
+      "name": "vap_fetchQueuedTransactions",
       "desc": "?",
       "params": [
         "?"
@@ -819,7 +819,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_signTransaction",
+      "name": "vap_signTransaction",
       "desc": "?",
       "params": [
         "?"
@@ -840,7 +840,7 @@
             "gas": "`QUANTITY`  - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.",
             "gasPrice": "`QUANTITY`  - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas",
             "value": "`QUANTITY`  - (optional) Integer of the value send with this transaction",
-            "data": "`DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)",
+            "data": "`DATA`  - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)",
             "nonce": "`QUANTITY`  - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce."
           }
         },
@@ -851,7 +851,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_inspectTransaction",
+      "name": "vap_inspectTransaction",
       "desc": "?",
       "params": [
         "?"
@@ -861,7 +861,7 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_notePassword",
+      "name": "vap_notePassword",
       "desc": "?",
       "params": [
         "?"
@@ -899,7 +899,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_minGasPrice",
+      "name": "vapcore_minGasPrice",
       "desc": "Returns currently set minimal gas price",
       "params": [],
       "returns": "`QUANTITY` - Minimal Gas Price",
@@ -907,7 +907,7 @@
       "outputFormatter": "outputBigNumberFormatter"
     },
     {
-      "name": "ethcore_extraData",
+      "name": "vapcore_extraData",
       "desc": "Returns currently set extra data",
       "params": [],
       "returns": "`DATA` - Extra data",
@@ -915,7 +915,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_setExtraData",
+      "name": "vapcore_setExtraData",
       "desc": "Changes extra data for newly mined blocks",
       "params": [
         "`DATA`- Extra Data"
@@ -927,7 +927,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_setMinGasPrice",
+      "name": "vapcore_setMinGasPrice",
       "desc": "Changes minimal gas price for transaction to be accepted to the queue.",
       "params": [
         "`QUANTITY` - Minimal gas price"
@@ -939,7 +939,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_gasFloorTarget",
+      "name": "vapcore_gasFloorTarget",
       "desc": "Returns current target for gas floor",
       "params": [],
       "returns": "`QUANTITY` - Gas Floor Target",
@@ -947,7 +947,7 @@
       "outputFormatter": "outputBigNumberFormatter"
     },
     {
-      "name": "ethcore_setGasFloorTarget",
+      "name": "vapcore_setGasFloorTarget",
       "desc": "Changes current gas floor target.",
       "params": [
         "`QUANTITY` - Gas Floor Target"
@@ -959,7 +959,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_setAuthor",
+      "name": "vapcore_setAuthor",
       "desc": "Changes author (coinbase) for mined blocks.",
       "params": [
         "`DATA`, 20 Bytes - Address"
@@ -971,7 +971,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_setTransactionsLimit",
+      "name": "vapcore_setTransactionsLimit",
       "desc": "Changes limit for transactions in queue.",
       "params": [
         "`QUANTITY` - New Limit"
@@ -983,7 +983,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_transactionsLimit",
+      "name": "vapcore_transactionsLimit",
       "desc": "Changes limit for transactions in queue.",
       "params": [],
       "returns": "`QUANTITY` - Current max number of transactions in queue.",
@@ -991,7 +991,7 @@
       "outputFormatter": "outputBigNumberFormatter"
     },
     {
-      "name": "ethcore_netChain",
+      "name": "vapcore_netChain",
       "desc": "Returns the name of the connected chain.",
       "params": [],
       "returns": "`DATA` - chain name",
@@ -999,7 +999,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_netMaxPeers",
+      "name": "vapcore_netMaxPeers",
       "desc": "Returns maximal number of peers.",
       "params": [],
       "returns": "`QUANTITY` - Maximal number of peers",
@@ -1007,7 +1007,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_netPort",
+      "name": "vapcore_netPort",
       "desc": "Returns network port the node is listening on.",
       "params": [],
       "returns": "`QUANTITY` - Port Number",
@@ -1015,7 +1015,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_rpcSettings",
+      "name": "vapcore_rpcSettings",
       "desc": "Returns basic settings of rpc (enabled, port, interface).",
       "params": [],
       "returns": "`OBJECT` - JSON object containing rpc settings",
@@ -1023,7 +1023,7 @@
       "outputFormatter": null
     },
     {
-      "name": "ethcore_nodeName",
+      "name": "vapcore_nodeName",
       "desc": "Returns node name (identity)",
       "params": [],
       "returns": "`DATA` - Node name",
