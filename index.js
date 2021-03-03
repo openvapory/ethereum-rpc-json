@@ -1,5 +1,118 @@
 'use strict';
 
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -102,7 +215,7 @@ var db = {
   }
 };
 
-var eth = {
+var vap = {
   accounts: {
     desc: 'Returns a list of addresses owned by client.',
     params: [],
@@ -139,7 +252,7 @@ var eth = {
         },
         gas: {
           type: Quantity,
-          desc: 'Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions',
+          desc: 'Integer of the gas provided for the transaction execution. vap_call consumes zero gas, but this parameter may be needed by some executions',
           optional: true
         },
         gasPrice: {
@@ -154,7 +267,7 @@ var eth = {
         },
         data: {
           type: Data,
-          desc: 'Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)',
+          desc: 'Hash of the method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)',
           optional: true
         }
       }
@@ -218,7 +331,7 @@ var eth = {
     desc: 'Makes a call or transaction, which won\'t be added to the blockchain and returns the used gas, which can be used for estimating the used gas.',
     params: [{
       type: Object,
-      desc: 'see [eth_sendTransaction](#eth_sendTransaction)',
+      desc: 'see [vap_sendTransaction](#vap_sendTransaction)',
       format: 'inputCallFormatter'
     }],
     returns: {
@@ -374,7 +487,7 @@ var eth = {
       type: Boolean,
       desc: 'If `true` it returns the full transaction objects, if `false` only the hashes of the transactions'
     }],
-    returns: 'See [eth_getBlockByHash](#eth_getblockbyhash)'
+    returns: 'See [vap_getBlockByHash](#vap_getblockbyhash)'
   },
 
   getBlockTransactionCountByHash: {
@@ -454,7 +567,7 @@ var eth = {
       type: Quantity,
       desc: 'The filter id'
     }],
-    returns: 'See [eth_getFilterChanges](#eth_getfilterchanges)'
+    returns: 'See [vap_getFilterChanges](#vap_getfilterchanges)'
   },
 
   getFilterLogsEx: {
@@ -470,9 +583,9 @@ var eth = {
     desc: 'Returns an array of all logs matching a given filter object.',
     params: [{
       type: Object,
-      desc: 'The filter object, see [eth_newFilter parameters](#eth_newfilter)'
+      desc: 'The filter object, see [vap_newFilter parameters](#vap_newfilter)'
     }],
-    returns: 'See [eth_getFilterChanges](#eth_getfilterchanges)'
+    returns: 'See [vap_getFilterChanges](#vap_getfilterchanges)'
   },
 
   getLogsEx: {
@@ -572,7 +685,7 @@ var eth = {
       type: Quantity,
       desc: 'integer of the transaction index position'
     }],
-    returns: 'See [eth_getBlockByHash](#eth_gettransactionbyhash)'
+    returns: 'See [vap_getBlockByHash](#vap_gettransactionbyhash)'
   },
 
   getTransactionByBlockNumberAndIndex: {
@@ -584,7 +697,7 @@ var eth = {
       type: Quantity,
       desc: 'The transaction index position'
     }],
-    returns: 'See [eth_getBlockByHash](#eth_gettransactionbyhash)'
+    returns: 'See [vap_getBlockByHash](#vap_gettransactionbyhash)'
   },
 
   getTransactionCount: {
@@ -660,7 +773,7 @@ var eth = {
       type: Quantity,
       desc: 'The uncle\'s index position'
     }],
-    returns: 'See [eth_getBlockByHash](#eth_getblockbyhash)'
+    returns: 'See [vap_getBlockByHash](#vap_getblockbyhash)'
   },
 
   getUncleByBlockNumberAndIndex: {
@@ -672,7 +785,7 @@ var eth = {
       type: Quantity,
       desc: 'The uncle\'s index position'
     }],
-    returns: 'See [eth_getBlockByHash](#eth_getblockbyhash)'
+    returns: 'See [vap_getBlockByHash](#vap_getblockbyhash)'
   },
 
   getUncleCountByBlockHash: {
@@ -736,7 +849,7 @@ var eth = {
   },
 
   newBlockFilter: {
-    desc: 'Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).',
+    desc: 'Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).',
     params: [],
     returns: {
       type: Quantity,
@@ -745,7 +858,7 @@ var eth = {
   },
 
   newFilter: {
-    desc: 'Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).',
+    desc: 'Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).',
     params: [],
     returns: {
       type: Object,
@@ -787,7 +900,7 @@ var eth = {
   },
 
   newPendingTransactionFilter: {
-    desc: 'Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).',
+    desc: 'Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).',
     params: [],
     returns: {
       type: Quantity,
@@ -814,11 +927,11 @@ var eth = {
   },
 
   protocolVersion: {
-    desc: 'Returns the current ethereum protocol version.',
+    desc: 'Returns the current vapory protocol version.',
     params: [],
     returns: {
       type: String,
-      desc: 'The current ethereum protocol version'
+      desc: 'The current vapory protocol version'
     }
   },
 
@@ -876,7 +989,7 @@ var eth = {
         },
         data: {
           type: Data,
-          desc: 'The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)'
+          desc: 'The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)'
         },
         nonce: {
           type: Quantity,
@@ -963,7 +1076,7 @@ var eth = {
         },
         currentBlock: {
           type: Quantity,
-          desc: 'The current block, same as eth_blockNumber'
+          desc: 'The current block, same as vap_blockNumber'
         },
         highestBlock: {
           type: Quantity,
@@ -974,7 +1087,7 @@ var eth = {
   },
 
   uninstallFilter: {
-    desc: 'Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren\'t requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.',
+    desc: 'Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren\'t requested with [vap_getFilterChanges](#vap_getfilterchanges) for a period of time.',
     params: [{
       type: Quantity,
       desc: 'The filter id'
@@ -995,7 +1108,7 @@ var eth = {
   }
 };
 
-var ethcore = {
+var vapcore = {
   acceptNonReservedPeers: {
     desc: '?',
     params: [],
@@ -1308,7 +1421,7 @@ var personal = {
         },
         data: {
           type: Data,
-          desc: 'The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)'
+          desc: 'The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)'
         },
         nonce: {
           type: Quantity,
@@ -1561,8 +1674,8 @@ var web3 = {
 
 var index = {
   db: db,
-  eth: eth,
-  ethcore: ethcore,
+  vap: vap,
+  vapcore: vapcore,
   net: net,
   personal: personal,
   shh: shh,

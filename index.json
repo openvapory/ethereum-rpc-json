@@ -61,928 +61,6 @@
       "outputFormatter": null
     },
     {
-      "name": "eth_accounts",
-      "desc": "Returns a list of addresses owned by client.",
-      "params": [],
-      "returns": "Array - 20 Bytes - addresses owned by the client",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_blockNumber",
-      "desc": "Returns the number of most recent block.",
-      "params": [],
-      "returns": "Quantity - integer of the current block number the client is on",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_call",
-      "desc": "Executes a new message call immediately without creating a transaction on the block chain.",
-      "params": [
-        {
-          "desc": "Object - The transaction call object",
-          "details": {
-            "data": "Data - (optional) Hash of the method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)",
-            "from": "Address - (optional) 20 Bytes - The address the transaction is send from",
-            "gas": "Quantity - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions",
-            "gasPrice": "Quantity - (optional) Integer of the gasPrice used for each paid gas",
-            "to": "Address - 20 Bytes  - The address the transaction is directed to",
-            "value": "Quantity - (optional) Integer of the value send with this transaction"
-          }
-        },
-        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Data - the return value of executed contract",
-      "inputFormatters": [
-        "inputCallFormatter",
-        "inputDefaultBlockNumberFormatter"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_coinbase",
-      "desc": "Returns the client coinbase address.",
-      "params": [],
-      "returns": "Address - The current coinbase address",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_compileLLL",
-      "desc": "Returns compiled LLL code.",
-      "params": [
-        "String - The source code"
-      ],
-      "returns": "Data - The compiled source code",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_compileSerpent",
-      "desc": "Returns compiled serpent code.",
-      "params": [
-        "String - The source code"
-      ],
-      "returns": "Data - The compiled source code",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_compileSolidity",
-      "desc": "Returns compiled solidity code.",
-      "params": [
-        "String - The source code"
-      ],
-      "returns": "Data - The compiled source code",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_estimateGas",
-      "desc": "Makes a call or transaction, which won't be added to the blockchain and returns the used gas, which can be used for estimating the used gas.",
-      "params": [
-        "Object - see [eth_sendTransaction](#eth_sendTransaction)"
-      ],
-      "returns": "Quantity - The amount of gas used",
-      "inputFormatters": [
-        "inputCallFormatter"
-      ],
-      "outputFormatter": "utils.toDecimal"
-    },
-    {
-      "name": "eth_fetchQueuedTransactions",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_flush",
-      "desc": "?",
-      "params": [],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_gasPrice",
-      "desc": "Returns the current price per gas in wei.",
-      "params": [],
-      "returns": "Quantity - integer of the current gas price in wei",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getBalance",
-      "desc": "Returns the balance of the account of given address.",
-      "params": [
-        "Address - 20 Bytes - address to check for balance",
-        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Quantity - integer of the current balance in wei",
-      "inputFormatters": [
-        "inputAddressFormatter",
-        "inputDefaultBlockNumberFormatter"
-      ],
-      "outputFormatter": "outputBigNumberFormatter"
-    },
-    {
-      "name": "eth_getBlockByHash",
-      "desc": "Returns information about a block by hash.",
-      "params": [
-        "Hash - Hash of a block",
-        "Boolean - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions"
-      ],
-      "returns": {
-        "desc": "Object - A block object, or `null` when no block was found",
-        "details": {
-          "difficulty": "Quantity - integer of the difficulty for this block",
-          "extraData": "Data - the 'extra data' field of this block",
-          "gasLimit": "Quantity - the maximum gas allowed in this block",
-          "gasUsed": "Quantity - the total used gas by all transactions in this block",
-          "hash": "Hash - 32 Bytes - hash of the block. `null` when its pending block",
-          "logsBloom": "Data - 256 Bytes - the bloom filter for the logs of the block. `null` when its pending block",
-          "miner": "Address - 20 Bytes - the address of the beneficiary to whom the mining rewards were given",
-          "nonce": "Data - 8 Bytes - hash of the generated proof-of-work. `null` when its pending block",
-          "number": "Quantity - The block number. `null` when its pending block",
-          "parentHash": "Hash - 32 Bytes - hash of the parent block",
-          "receiptsRoot": "Data - 32 Bytes - the root of the receipts trie of the block",
-          "sha3Uncles": "Data - 32 Bytes - SHA3 of the uncles data in the block",
-          "size": "Quantity - integer the size of this block in bytes",
-          "stateRoot": "Data - 32 Bytes - the root of the final state trie of the block",
-          "timestamp": "Quantity - the unix timestamp for when the block was collated",
-          "totalDifficulty": "Quantity - integer of the total difficulty of the chain until this block",
-          "transactions": "Array - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter",
-          "transactionsRoot": "Data - 32 Bytes - the root of the transaction trie of the block",
-          "uncles": "Array - Array of uncle hashes"
-        }
-      },
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getBlockByNumber",
-      "desc": "Returns information about a block by block number.",
-      "params": [
-        "BlockNumber - integer of a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
-        "Boolean - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions"
-      ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getBlockTransactionCountByHash",
-      "desc": "Returns the number of transactions in a block from a block matching the given block hash.",
-      "params": [
-        "Hash - 32 Bytes - hash of a block"
-      ],
-      "returns": "Quantity - integer of the number of transactions in this block",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getBlockTransactionCountByNumber",
-      "desc": "Returns the number of transactions in a block from a block matching the given block number.",
-      "params": [
-        "BlockNumber - integer of a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Quantity - integer of the number of transactions in this block",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getCode",
-      "desc": "Returns code at a given address.",
-      "params": [
-        "Address - 20 Bytes - address",
-        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Data - the code from the given address",
-      "inputFormatters": [
-        "inputAddressFormatter",
-        "inputDefaultBlockNumberFormatter"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getCompilers",
-      "desc": "Returns a list of available compilers in the client.",
-      "params": [],
-      "returns": "Array - Array of available compilers",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getFilterChanges",
-      "desc": "Polling method for a filter, which returns an array of logs which occurred since last poll.",
-      "params": [
-        "Quantity - The filter id"
-      ],
-      "returns": "Array - Array of log objects, or an empty array if nothing has changed since last poll",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getFilterChangesEx",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getFilterLogs",
-      "desc": "Returns an array of all logs matching filter with given id.",
-      "params": [
-        "Quantity - The filter id"
-      ],
-      "returns": "See [eth_getFilterChanges](#eth_getfilterchanges)",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getFilterLogsEx",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getLogs",
-      "desc": "Returns an array of all logs matching a given filter object.",
-      "params": [
-        "Object - The filter object, see [eth_newFilter parameters](#eth_newfilter)"
-      ],
-      "returns": "See [eth_getFilterChanges](#eth_getfilterchanges)",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getLogsEx",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getStorageAt",
-      "desc": "Returns the value from a storage position at a given address.",
-      "params": [
-        "Address - 20 Bytes - address of the storage",
-        "Quantity - integer of the position in the storage",
-        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Data - the value at this storage position",
-      "inputFormatters": [
-        null,
-        "utils.toHex",
-        "inputDefaultBlockNumberFormatter"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getTransactionByBlockHashAndIndex",
-      "desc": "Returns information about a transaction by block hash and transaction index position.",
-      "params": [
-        "Hash - hash of a block",
-        "Quantity - integer of the transaction index position"
-      ],
-      "returns": "See [eth_getBlockByHash](#eth_gettransactionbyhash)",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getTransactionByBlockNumberAndIndex",
-      "desc": "Returns information about a transaction by block number and transaction index position.",
-      "params": [
-        "BlockNumber - a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
-        "Quantity - The transaction index position"
-      ],
-      "returns": "See [eth_getBlockByHash](#eth_gettransactionbyhash)",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getTransactionByHash",
-      "desc": "Returns the information about a transaction requested by transaction hash.",
-      "params": [
-        "Hash - 32 Bytes - hash of a transaction"
-      ],
-      "returns": {
-        "desc": "Object - A transaction object, or `null` when no transaction was found:",
-        "details": {
-          "blockHash": "Hash - 32 Bytes - hash of the block where this transaction was in. `null` when its pending.",
-          "blockNumber": "BlockNumber - block number where this transaction was in. `null` when its pending.",
-          "from": "Address - 20 Bytes - address of the sender.",
-          "gas": "Quantity - gas provided by the sender.",
-          "gasPrice": "Quantity - gas price provided by the sender in Wei.",
-          "hash": "Hash - 32 Bytes - hash of the transaction.",
-          "input": "Data - the data send along with the transaction.",
-          "nonce": "Quantity - the number of transactions made by the sender prior to this one.",
-          "to": "Address - 20 Bytes - address of the receiver. `null` when its a contract creation transaction.",
-          "transactionIndex": "Quantity - integer of the transactions index position in the block. `null` when its pending.",
-          "value": "Quantity - value transferred in Wei."
-        }
-      },
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": "outputTransactionFormatter"
-    },
-    {
-      "name": "eth_getTransactionCount",
-      "desc": "Returns the number of transactions *sent* from an address.",
-      "params": [
-        "Address - 20 Bytes - address",
-        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Quantity - integer of the number of transactions send from this address",
-      "inputFormatters": [
-        null,
-        "inputDefaultBlockNumberFormatter"
-      ],
-      "outputFormatter": "utils.toDecimal"
-    },
-    {
-      "name": "eth_getTransactionReceipt",
-      "desc": "Returns the receipt of a transaction by transaction hash.\n**Note** That the receipt is not available for pending transactions.",
-      "params": [
-        "Hash - hash of a transaction"
-      ],
-      "returns": {
-        "desc": "Object - A transaction receipt object, or `null` when no receipt was found:",
-        "details": {
-          "blockHash": "Hash - 32 Bytes - hash of the block where this transaction was in.",
-          "blockNumber": "BlockNumber - block number where this transaction was in.",
-          "contractAddress": "Address - 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise `null`.",
-          "cumulativeGasUsed": "Quantity - The total amount of gas used when this transaction was executed in the block.",
-          "gasUsed": "Quantity - The amount of gas used by this specific transaction alone.",
-          "logs": "Array - Array of log objects, which this transaction generated.",
-          "transactionHash": "Hash - 32 Bytes - hash of the transaction.",
-          "transactionIndex": "Quantity - integer of the transactions index position in the block."
-        }
-      },
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": "outputTransactionReceiptFormatter"
-    },
-    {
-      "name": "eth_getUncleByBlockHashAndIndex",
-      "desc": "Returns information about a uncle of a block by hash and uncle index position.",
-      "params": [
-        "Hash - Hash a block",
-        "Quantity - The uncle's index position"
-      ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getUncleByBlockNumberAndIndex",
-      "desc": "Returns information about a uncle of a block by number and uncle index position.",
-      "params": [
-        "BlockNumber - a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
-        "Quantity - The uncle's index position"
-      ],
-      "returns": "See [eth_getBlockByHash](#eth_getblockbyhash)",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getUncleCountByBlockHash",
-      "desc": "Returns the number of uncles in a block from a block matching the given block hash.",
-      "params": [
-        "Hash - 32 Bytes - hash of a block"
-      ],
-      "returns": "Quantity - integer of the number of uncles in this block",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getUncleCountByBlockNumber",
-      "desc": "Returns the number of uncles in a block from a block matching the given block number.",
-      "params": [
-        "BlockNumber - integer of a block number, or the string 'latest', 'earliest' or 'pending', see the [default block parameter](#the-default-block-parameter)"
-      ],
-      "returns": "Quantity - integer of the number of uncles in this block",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_getWork",
-      "desc": "Returns the hash of the current block, the seedHash, and the boundary condition to be met ('target').",
-      "params": [],
-      "returns": "Array - Array with the following properties:",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_hashrate",
-      "desc": "Returns the number of hashes per second that the node is mining with.",
-      "params": [],
-      "returns": "Quantity - number of hashes per second",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_inspectTransaction",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_mining",
-      "desc": "Returns `true` if client is actively mining new blocks.",
-      "params": [],
-      "returns": "Boolean - `true` of the client is mining, otherwise `false`",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_newBlockFilter",
-      "desc": "Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
-      "params": [],
-      "returns": "Quantity - A filter id",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_newFilter",
-      "desc": "Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
-      "params": [],
-      "returns": {
-        "desc": "Object - The filter options:",
-        "details": {
-          "address": "Address - (optional) 20 Bytes - Contract address or a list of addresses from which logs should originate.",
-          "fromBlock": "BlockNumber - (optional) (default: latest) Integer block number, or `'latest'` for the last mined block or `'pending'`, `'earliest'` for not yet mined transactions.",
-          "toBlock": "BlockNumber - (optional) (default: latest) Integer block number, or `'latest'` for the last mined block or `'pending'`, `'earliest'` for not yet mined transactions.",
-          "topics": "Array - (optional) Array of 32 Bytes `DATA` topics. Topics are order-dependent. Each topic can also be an array of DATA with 'or' options."
-        }
-      },
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_newFilterEx",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_newPendingTransactionFilter",
-      "desc": "Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).",
-      "params": [],
-      "returns": "Quantity - A filter id",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_notePassword",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_pendingTransactions",
-      "desc": "?",
-      "params": [],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_protocolVersion",
-      "desc": "Returns the current ethereum protocol version.",
-      "params": [],
-      "returns": "String - The current ethereum protocol version",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_register",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_sendRawTransaction",
-      "desc": "Creates new message call transaction or a contract creation for signed transactions.",
-      "params": [
-        "Data - The signed transaction data"
-      ],
-      "returns": "Hash - 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_sendTransaction",
-      "desc": "Creates new message call transaction or a contract creation, if the data field contains code.",
-      "params": [
-        {
-          "desc": "Object - The transaction object",
-          "details": {
-            "data": "Data - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)",
-            "from": "Address - 20 Bytes - The address the transaction is send from",
-            "gas": "Quantity - (optional) (default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.",
-            "gasPrice": "Quantity - (optional) (default: To-Be-Determined) Integer of the gasPrice used for each paid gas",
-            "nonce": "Quantity - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.",
-            "to": "Address - 20 Bytes - (optional when creating new contract) The address the transaction is directed to",
-            "value": "Quantity - (optional) Integer of the value send with this transaction"
-          }
-        }
-      ],
-      "returns": "Hash - 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available",
-      "inputFormatters": [
-        "inputTransactionFormatter"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_sign",
-      "desc": "Signs data with a given address.\n**Note** the address to sign must be unlocked.",
-      "params": [
-        "Address - 20 Bytes - address",
-        "Data - Data to sign"
-      ],
-      "returns": "Data - Signed data",
-      "inputFormatters": [
-        "inputAddressFormatter",
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_signTransaction",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_submitHashrate",
-      "desc": "Used for submitting mining hashrate.",
-      "params": [
-        "Data - a hexadecimal string representation (32 bytes) of the hash rate",
-        "String - A random hexadecimal(32 bytes) ID identifying the client"
-      ],
-      "returns": "Boolean - `true` if submitting went through succesfully and `false` otherwise",
-      "inputFormatters": [
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_submitWork",
-      "desc": "Used for submitting a proof-of-work solution.",
-      "params": [
-        "Data - 8 Bytes - The nonce found (64 bits)",
-        "Data - 32 Bytes - The header's pow-hash (256 bits)",
-        "Data - 32 Bytes - The mix digest (256 bits)"
-      ],
-      "returns": "Boolean - `true` if the provided solution is valid, otherwise `false`",
-      "inputFormatters": [
-        null,
-        null,
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_syncing",
-      "desc": "Returns an object with data about the sync status or `false`.",
-      "params": [],
-      "returns": {
-        "desc": "Object - An object with sync status data or `FALSE`, when not syncing",
-        "details": {
-          "currentBlock": "Quantity - The current block, same as eth_blockNumber",
-          "highestBlock": "Quantity - The estimated highest block",
-          "startingBlock": "Quantity - The block at which the import started (will only be reset, after the sync reached his head)"
-        }
-      },
-      "inputFormatters": [],
-      "outputFormatter": "outputSyncingFormatter"
-    },
-    {
-      "name": "eth_uninstallFilter",
-      "desc": "Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren't requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.",
-      "params": [
-        "Quantity - The filter id"
-      ],
-      "returns": "Boolean - `true` if the filter was successfully uninstalled, otherwise `false`",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "eth_unregister",
-      "desc": "?",
-      "params": [
-        "?"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_acceptNonReservedPeers",
-      "desc": "?",
-      "params": [],
-      "returns": "Boolean - ?",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_addReservedPeer",
-      "desc": "?",
-      "params": [
-        "String - Enode"
-      ],
-      "returns": "Boolean - ?",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_defaultExtraData",
-      "desc": "Returns the default extra data",
-      "params": [],
-      "returns": "Data - Extra data",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_devLogs",
-      "desc": "Returns latest logs of your node",
-      "params": [],
-      "returns": "Array - Development logs",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_devLogsLevels",
-      "desc": "Returns current log level settings",
-      "params": [],
-      "returns": "String - undefined",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_dropNonReservedPeers",
-      "desc": "?",
-      "params": [],
-      "returns": "Boolean - ?",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_extraData",
-      "desc": "Returns currently set extra data",
-      "params": [],
-      "returns": "Data - Extra data",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_gasFloorTarget",
-      "desc": "Returns current target for gas floor",
-      "params": [],
-      "returns": "Quantity - Gas Floor Target",
-      "inputFormatters": [],
-      "outputFormatter": "outputBigNumberFormatter"
-    },
-    {
-      "name": "ethcore_minGasPrice",
-      "desc": "Returns currently set minimal gas price",
-      "params": [],
-      "returns": "Quantity - Minimal Gas Price",
-      "inputFormatters": [],
-      "outputFormatter": "outputBigNumberFormatter"
-    },
-    {
-      "name": "ethcore_netChain",
-      "desc": "Returns the name of the connected chain.",
-      "params": [],
-      "returns": "String - chain name",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_netMaxPeers",
-      "desc": "Returns maximal number of peers.",
-      "params": [],
-      "returns": "Quantity - Maximal number of peers",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_netPort",
-      "desc": "Returns network port the node is listening on.",
-      "params": [],
-      "returns": "Quantity - Port Number",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_nodeName",
-      "desc": "Returns node name (identity)",
-      "params": [],
-      "returns": "String - Node name",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_removeReservedPeer",
-      "desc": "?",
-      "params": [
-        "String - Encode"
-      ],
-      "returns": "Boolean - ?",
-      "inputFormatters": [
-        null
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_rpcSettings",
-      "desc": "Returns basic settings of rpc (enabled, port, interface).",
-      "params": [],
-      "returns": "Object - JSON object containing rpc settings",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_setAuthor",
-      "desc": "Changes author (coinbase) for mined blocks.",
-      "params": [
-        "Address - 20 Bytes - Address"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        "inputAddressFormatter"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_setExtraData",
-      "desc": "Changes extra data for newly mined blocks",
-      "params": [
-        "Data - Extra Data"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        "utils.toHex"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_setGasFloorTarget",
-      "desc": "Changes current gas floor target.",
-      "params": [
-        "Quantity - Gas Floor Target"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        "utils.toHex"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_setMinGasPrice",
-      "desc": "Changes minimal gas price for transaction to be accepted to the queue.",
-      "params": [
-        "Quantity - Minimal gas price"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        "utils.toHex"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_setTransactionsLimit",
-      "desc": "Changes limit for transactions in queue.",
-      "params": [
-        "Quantity - New Limit"
-      ],
-      "returns": "Boolean - whether the call was successful",
-      "inputFormatters": [
-        "utils.toHex"
-      ],
-      "outputFormatter": null
-    },
-    {
-      "name": "ethcore_transactionsLimit",
-      "desc": "Changes limit for transactions in queue.",
-      "params": [],
-      "returns": "Quantity - Current max number of transactions in queue",
-      "inputFormatters": [],
-      "outputFormatter": "outputBigNumberFormatter"
-    },
-    {
-      "name": "ethcore_unsignedTransactionsCount",
-      "desc": "Returns number of unsigned transactions when running with Trusted Signer. Error otherwise",
-      "params": [],
-      "returns": "Quantity - Number of unsigned transactions",
-      "inputFormatters": [],
-      "outputFormatter": null
-    },
-    {
       "name": "net_listening",
       "desc": "Returns `true` if client is actively listening for network connections.",
       "params": [],
@@ -1033,7 +111,7 @@
         {
           "desc": "Object - The transaction object",
           "details": {
-            "data": "Data - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Ethereum Contract ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI)",
+            "data": "Data - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)",
             "from": "Address - 20 Bytes - The address the transaction is send from",
             "gas": "Quantity - (optional) (default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas",
             "gasPrice": "Quantity - (optional) (default: To-Be-Determined) Integer of the gasPrice used for each paid gas",
@@ -1247,6 +325,928 @@
       "inputFormatters": [
         null
       ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_accounts",
+      "desc": "Returns a list of addresses owned by client.",
+      "params": [],
+      "returns": "Array - 20 Bytes - addresses owned by the client",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_blockNumber",
+      "desc": "Returns the number of most recent block.",
+      "params": [],
+      "returns": "Quantity - integer of the current block number the client is on",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_call",
+      "desc": "Executes a new message call immediately without creating a transaction on the block chain.",
+      "params": [
+        {
+          "desc": "Object - The transaction call object",
+          "details": {
+            "data": "Data - (optional) Hash of the method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)",
+            "from": "Address - (optional) 20 Bytes - The address the transaction is send from",
+            "gas": "Quantity - (optional) Integer of the gas provided for the transaction execution. vap_call consumes zero gas, but this parameter may be needed by some executions",
+            "gasPrice": "Quantity - (optional) Integer of the gasPrice used for each paid gas",
+            "to": "Address - 20 Bytes  - The address the transaction is directed to",
+            "value": "Quantity - (optional) Integer of the value send with this transaction"
+          }
+        },
+        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Data - the return value of executed contract",
+      "inputFormatters": [
+        "inputCallFormatter",
+        "inputDefaultBlockNumberFormatter"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_coinbase",
+      "desc": "Returns the client coinbase address.",
+      "params": [],
+      "returns": "Address - The current coinbase address",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_compileLLL",
+      "desc": "Returns compiled LLL code.",
+      "params": [
+        "String - The source code"
+      ],
+      "returns": "Data - The compiled source code",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_compileSerpent",
+      "desc": "Returns compiled serpent code.",
+      "params": [
+        "String - The source code"
+      ],
+      "returns": "Data - The compiled source code",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_compileSolidity",
+      "desc": "Returns compiled solidity code.",
+      "params": [
+        "String - The source code"
+      ],
+      "returns": "Data - The compiled source code",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_estimateGas",
+      "desc": "Makes a call or transaction, which won't be added to the blockchain and returns the used gas, which can be used for estimating the used gas.",
+      "params": [
+        "Object - see [vap_sendTransaction](#vap_sendTransaction)"
+      ],
+      "returns": "Quantity - The amount of gas used",
+      "inputFormatters": [
+        "inputCallFormatter"
+      ],
+      "outputFormatter": "utils.toDecimal"
+    },
+    {
+      "name": "vap_fetchQueuedTransactions",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_flush",
+      "desc": "?",
+      "params": [],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_gasPrice",
+      "desc": "Returns the current price per gas in wei.",
+      "params": [],
+      "returns": "Quantity - integer of the current gas price in wei",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getBalance",
+      "desc": "Returns the balance of the account of given address.",
+      "params": [
+        "Address - 20 Bytes - address to check for balance",
+        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Quantity - integer of the current balance in wei",
+      "inputFormatters": [
+        "inputAddressFormatter",
+        "inputDefaultBlockNumberFormatter"
+      ],
+      "outputFormatter": "outputBigNumberFormatter"
+    },
+    {
+      "name": "vap_getBlockByHash",
+      "desc": "Returns information about a block by hash.",
+      "params": [
+        "Hash - Hash of a block",
+        "Boolean - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions"
+      ],
+      "returns": {
+        "desc": "Object - A block object, or `null` when no block was found",
+        "details": {
+          "difficulty": "Quantity - integer of the difficulty for this block",
+          "extraData": "Data - the 'extra data' field of this block",
+          "gasLimit": "Quantity - the maximum gas allowed in this block",
+          "gasUsed": "Quantity - the total used gas by all transactions in this block",
+          "hash": "Hash - 32 Bytes - hash of the block. `null` when its pending block",
+          "logsBloom": "Data - 256 Bytes - the bloom filter for the logs of the block. `null` when its pending block",
+          "miner": "Address - 20 Bytes - the address of the beneficiary to whom the mining rewards were given",
+          "nonce": "Data - 8 Bytes - hash of the generated proof-of-work. `null` when its pending block",
+          "number": "Quantity - The block number. `null` when its pending block",
+          "parentHash": "Hash - 32 Bytes - hash of the parent block",
+          "receiptsRoot": "Data - 32 Bytes - the root of the receipts trie of the block",
+          "sha3Uncles": "Data - 32 Bytes - SHA3 of the uncles data in the block",
+          "size": "Quantity - integer the size of this block in bytes",
+          "stateRoot": "Data - 32 Bytes - the root of the final state trie of the block",
+          "timestamp": "Quantity - the unix timestamp for when the block was collated",
+          "totalDifficulty": "Quantity - integer of the total difficulty of the chain until this block",
+          "transactions": "Array - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter",
+          "transactionsRoot": "Data - 32 Bytes - the root of the transaction trie of the block",
+          "uncles": "Array - Array of uncle hashes"
+        }
+      },
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getBlockByNumber",
+      "desc": "Returns information about a block by block number.",
+      "params": [
+        "BlockNumber - integer of a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
+        "Boolean - If `true` it returns the full transaction objects, if `false` only the hashes of the transactions"
+      ],
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getBlockTransactionCountByHash",
+      "desc": "Returns the number of transactions in a block from a block matching the given block hash.",
+      "params": [
+        "Hash - 32 Bytes - hash of a block"
+      ],
+      "returns": "Quantity - integer of the number of transactions in this block",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getBlockTransactionCountByNumber",
+      "desc": "Returns the number of transactions in a block from a block matching the given block number.",
+      "params": [
+        "BlockNumber - integer of a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Quantity - integer of the number of transactions in this block",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getCode",
+      "desc": "Returns code at a given address.",
+      "params": [
+        "Address - 20 Bytes - address",
+        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Data - the code from the given address",
+      "inputFormatters": [
+        "inputAddressFormatter",
+        "inputDefaultBlockNumberFormatter"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getCompilers",
+      "desc": "Returns a list of available compilers in the client.",
+      "params": [],
+      "returns": "Array - Array of available compilers",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getFilterChanges",
+      "desc": "Polling method for a filter, which returns an array of logs which occurred since last poll.",
+      "params": [
+        "Quantity - The filter id"
+      ],
+      "returns": "Array - Array of log objects, or an empty array if nothing has changed since last poll",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getFilterChangesEx",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getFilterLogs",
+      "desc": "Returns an array of all logs matching filter with given id.",
+      "params": [
+        "Quantity - The filter id"
+      ],
+      "returns": "See [vap_getFilterChanges](#vap_getfilterchanges)",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getFilterLogsEx",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getLogs",
+      "desc": "Returns an array of all logs matching a given filter object.",
+      "params": [
+        "Object - The filter object, see [vap_newFilter parameters](#vap_newfilter)"
+      ],
+      "returns": "See [vap_getFilterChanges](#vap_getfilterchanges)",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getLogsEx",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getStorageAt",
+      "desc": "Returns the value from a storage position at a given address.",
+      "params": [
+        "Address - 20 Bytes - address of the storage",
+        "Quantity - integer of the position in the storage",
+        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Data - the value at this storage position",
+      "inputFormatters": [
+        null,
+        "utils.toHex",
+        "inputDefaultBlockNumberFormatter"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getTransactionByBlockHashAndIndex",
+      "desc": "Returns information about a transaction by block hash and transaction index position.",
+      "params": [
+        "Hash - hash of a block",
+        "Quantity - integer of the transaction index position"
+      ],
+      "returns": "See [vap_getBlockByHash](#vap_gettransactionbyhash)",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getTransactionByBlockNumberAndIndex",
+      "desc": "Returns information about a transaction by block number and transaction index position.",
+      "params": [
+        "BlockNumber - a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
+        "Quantity - The transaction index position"
+      ],
+      "returns": "See [vap_getBlockByHash](#vap_gettransactionbyhash)",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getTransactionByHash",
+      "desc": "Returns the information about a transaction requested by transaction hash.",
+      "params": [
+        "Hash - 32 Bytes - hash of a transaction"
+      ],
+      "returns": {
+        "desc": "Object - A transaction object, or `null` when no transaction was found:",
+        "details": {
+          "blockHash": "Hash - 32 Bytes - hash of the block where this transaction was in. `null` when its pending.",
+          "blockNumber": "BlockNumber - block number where this transaction was in. `null` when its pending.",
+          "from": "Address - 20 Bytes - address of the sender.",
+          "gas": "Quantity - gas provided by the sender.",
+          "gasPrice": "Quantity - gas price provided by the sender in Wei.",
+          "hash": "Hash - 32 Bytes - hash of the transaction.",
+          "input": "Data - the data send along with the transaction.",
+          "nonce": "Quantity - the number of transactions made by the sender prior to this one.",
+          "to": "Address - 20 Bytes - address of the receiver. `null` when its a contract creation transaction.",
+          "transactionIndex": "Quantity - integer of the transactions index position in the block. `null` when its pending.",
+          "value": "Quantity - value transferred in Wei."
+        }
+      },
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": "outputTransactionFormatter"
+    },
+    {
+      "name": "vap_getTransactionCount",
+      "desc": "Returns the number of transactions *sent* from an address.",
+      "params": [
+        "Address - 20 Bytes - address",
+        "BlockNumber - integer block number, or the string `'latest'`, `'earliest'` or `'pending'`, see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Quantity - integer of the number of transactions send from this address",
+      "inputFormatters": [
+        null,
+        "inputDefaultBlockNumberFormatter"
+      ],
+      "outputFormatter": "utils.toDecimal"
+    },
+    {
+      "name": "vap_getTransactionReceipt",
+      "desc": "Returns the receipt of a transaction by transaction hash.\n**Note** That the receipt is not available for pending transactions.",
+      "params": [
+        "Hash - hash of a transaction"
+      ],
+      "returns": {
+        "desc": "Object - A transaction receipt object, or `null` when no receipt was found:",
+        "details": {
+          "blockHash": "Hash - 32 Bytes - hash of the block where this transaction was in.",
+          "blockNumber": "BlockNumber - block number where this transaction was in.",
+          "contractAddress": "Address - 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise `null`.",
+          "cumulativeGasUsed": "Quantity - The total amount of gas used when this transaction was executed in the block.",
+          "gasUsed": "Quantity - The amount of gas used by this specific transaction alone.",
+          "logs": "Array - Array of log objects, which this transaction generated.",
+          "transactionHash": "Hash - 32 Bytes - hash of the transaction.",
+          "transactionIndex": "Quantity - integer of the transactions index position in the block."
+        }
+      },
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": "outputTransactionReceiptFormatter"
+    },
+    {
+      "name": "vap_getUncleByBlockHashAndIndex",
+      "desc": "Returns information about a uncle of a block by hash and uncle index position.",
+      "params": [
+        "Hash - Hash a block",
+        "Quantity - The uncle's index position"
+      ],
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getUncleByBlockNumberAndIndex",
+      "desc": "Returns information about a uncle of a block by number and uncle index position.",
+      "params": [
+        "BlockNumber - a block number, or the string `'earliest'`, `'latest'` or `'pending'`, as in the [default block parameter](#the-default-block-parameter)",
+        "Quantity - The uncle's index position"
+      ],
+      "returns": "See [vap_getBlockByHash](#vap_getblockbyhash)",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getUncleCountByBlockHash",
+      "desc": "Returns the number of uncles in a block from a block matching the given block hash.",
+      "params": [
+        "Hash - 32 Bytes - hash of a block"
+      ],
+      "returns": "Quantity - integer of the number of uncles in this block",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getUncleCountByBlockNumber",
+      "desc": "Returns the number of uncles in a block from a block matching the given block number.",
+      "params": [
+        "BlockNumber - integer of a block number, or the string 'latest', 'earliest' or 'pending', see the [default block parameter](#the-default-block-parameter)"
+      ],
+      "returns": "Quantity - integer of the number of uncles in this block",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_getWork",
+      "desc": "Returns the hash of the current block, the seedHash, and the boundary condition to be met ('target').",
+      "params": [],
+      "returns": "Array - Array with the following properties:",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_hashrate",
+      "desc": "Returns the number of hashes per second that the node is mining with.",
+      "params": [],
+      "returns": "Quantity - number of hashes per second",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_inspectTransaction",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_mining",
+      "desc": "Returns `true` if client is actively mining new blocks.",
+      "params": [],
+      "returns": "Boolean - `true` of the client is mining, otherwise `false`",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_newBlockFilter",
+      "desc": "Creates a filter in the node, to notify when a new block arrives.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
+      "params": [],
+      "returns": "Quantity - A filter id",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_newFilter",
+      "desc": "Creates a filter object, based on filter options, to notify when the state changes (logs).\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
+      "params": [],
+      "returns": {
+        "desc": "Object - The filter options:",
+        "details": {
+          "address": "Address - (optional) 20 Bytes - Contract address or a list of addresses from which logs should originate.",
+          "fromBlock": "BlockNumber - (optional) (default: latest) Integer block number, or `'latest'` for the last mined block or `'pending'`, `'earliest'` for not yet mined transactions.",
+          "toBlock": "BlockNumber - (optional) (default: latest) Integer block number, or `'latest'` for the last mined block or `'pending'`, `'earliest'` for not yet mined transactions.",
+          "topics": "Array - (optional) Array of 32 Bytes `DATA` topics. Topics are order-dependent. Each topic can also be an array of DATA with 'or' options."
+        }
+      },
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_newFilterEx",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_newPendingTransactionFilter",
+      "desc": "Creates a filter in the node, to notify when new pending transactions arrive.\nTo check if the state has changed, call [vap_getFilterChanges](#vap_getfilterchanges).",
+      "params": [],
+      "returns": "Quantity - A filter id",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_notePassword",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_pendingTransactions",
+      "desc": "?",
+      "params": [],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_protocolVersion",
+      "desc": "Returns the current vapory protocol version.",
+      "params": [],
+      "returns": "String - The current vapory protocol version",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_register",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_sendRawTransaction",
+      "desc": "Creates new message call transaction or a contract creation for signed transactions.",
+      "params": [
+        "Data - The signed transaction data"
+      ],
+      "returns": "Hash - 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_sendTransaction",
+      "desc": "Creates new message call transaction or a contract creation, if the data field contains code.",
+      "params": [
+        {
+          "desc": "Object - The transaction object",
+          "details": {
+            "data": "Data - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see [Vapory Contract ABI](https://github.com/vaporyco/wiki/wiki/Vapory-Contract-ABI)",
+            "from": "Address - 20 Bytes - The address the transaction is send from",
+            "gas": "Quantity - (optional) (default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.",
+            "gasPrice": "Quantity - (optional) (default: To-Be-Determined) Integer of the gasPrice used for each paid gas",
+            "nonce": "Quantity - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.",
+            "to": "Address - 20 Bytes - (optional when creating new contract) The address the transaction is directed to",
+            "value": "Quantity - (optional) Integer of the value send with this transaction"
+          }
+        }
+      ],
+      "returns": "Hash - 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available",
+      "inputFormatters": [
+        "inputTransactionFormatter"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_sign",
+      "desc": "Signs data with a given address.\n**Note** the address to sign must be unlocked.",
+      "params": [
+        "Address - 20 Bytes - address",
+        "Data - Data to sign"
+      ],
+      "returns": "Data - Signed data",
+      "inputFormatters": [
+        "inputAddressFormatter",
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_signTransaction",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_submitHashrate",
+      "desc": "Used for submitting mining hashrate.",
+      "params": [
+        "Data - a hexadecimal string representation (32 bytes) of the hash rate",
+        "String - A random hexadecimal(32 bytes) ID identifying the client"
+      ],
+      "returns": "Boolean - `true` if submitting went through succesfully and `false` otherwise",
+      "inputFormatters": [
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_submitWork",
+      "desc": "Used for submitting a proof-of-work solution.",
+      "params": [
+        "Data - 8 Bytes - The nonce found (64 bits)",
+        "Data - 32 Bytes - The header's pow-hash (256 bits)",
+        "Data - 32 Bytes - The mix digest (256 bits)"
+      ],
+      "returns": "Boolean - `true` if the provided solution is valid, otherwise `false`",
+      "inputFormatters": [
+        null,
+        null,
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_syncing",
+      "desc": "Returns an object with data about the sync status or `false`.",
+      "params": [],
+      "returns": {
+        "desc": "Object - An object with sync status data or `FALSE`, when not syncing",
+        "details": {
+          "currentBlock": "Quantity - The current block, same as vap_blockNumber",
+          "highestBlock": "Quantity - The estimated highest block",
+          "startingBlock": "Quantity - The block at which the import started (will only be reset, after the sync reached his head)"
+        }
+      },
+      "inputFormatters": [],
+      "outputFormatter": "outputSyncingFormatter"
+    },
+    {
+      "name": "vap_uninstallFilter",
+      "desc": "Uninstalls a filter with given id. Should always be called when watch is no longer needed.\nAdditonally Filters timeout when they aren't requested with [vap_getFilterChanges](#vap_getfilterchanges) for a period of time.",
+      "params": [
+        "Quantity - The filter id"
+      ],
+      "returns": "Boolean - `true` if the filter was successfully uninstalled, otherwise `false`",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vap_unregister",
+      "desc": "?",
+      "params": [
+        "?"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_acceptNonReservedPeers",
+      "desc": "?",
+      "params": [],
+      "returns": "Boolean - ?",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_addReservedPeer",
+      "desc": "?",
+      "params": [
+        "String - Enode"
+      ],
+      "returns": "Boolean - ?",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_defaultExtraData",
+      "desc": "Returns the default extra data",
+      "params": [],
+      "returns": "Data - Extra data",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_devLogs",
+      "desc": "Returns latest logs of your node",
+      "params": [],
+      "returns": "Array - Development logs",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_devLogsLevels",
+      "desc": "Returns current log level settings",
+      "params": [],
+      "returns": "String - undefined",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_dropNonReservedPeers",
+      "desc": "?",
+      "params": [],
+      "returns": "Boolean - ?",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_extraData",
+      "desc": "Returns currently set extra data",
+      "params": [],
+      "returns": "Data - Extra data",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_gasFloorTarget",
+      "desc": "Returns current target for gas floor",
+      "params": [],
+      "returns": "Quantity - Gas Floor Target",
+      "inputFormatters": [],
+      "outputFormatter": "outputBigNumberFormatter"
+    },
+    {
+      "name": "vapcore_minGasPrice",
+      "desc": "Returns currently set minimal gas price",
+      "params": [],
+      "returns": "Quantity - Minimal Gas Price",
+      "inputFormatters": [],
+      "outputFormatter": "outputBigNumberFormatter"
+    },
+    {
+      "name": "vapcore_netChain",
+      "desc": "Returns the name of the connected chain.",
+      "params": [],
+      "returns": "String - chain name",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_netMaxPeers",
+      "desc": "Returns maximal number of peers.",
+      "params": [],
+      "returns": "Quantity - Maximal number of peers",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_netPort",
+      "desc": "Returns network port the node is listening on.",
+      "params": [],
+      "returns": "Quantity - Port Number",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_nodeName",
+      "desc": "Returns node name (identity)",
+      "params": [],
+      "returns": "String - Node name",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_removeReservedPeer",
+      "desc": "?",
+      "params": [
+        "String - Encode"
+      ],
+      "returns": "Boolean - ?",
+      "inputFormatters": [
+        null
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_rpcSettings",
+      "desc": "Returns basic settings of rpc (enabled, port, interface).",
+      "params": [],
+      "returns": "Object - JSON object containing rpc settings",
+      "inputFormatters": [],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_setAuthor",
+      "desc": "Changes author (coinbase) for mined blocks.",
+      "params": [
+        "Address - 20 Bytes - Address"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        "inputAddressFormatter"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_setExtraData",
+      "desc": "Changes extra data for newly mined blocks",
+      "params": [
+        "Data - Extra Data"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        "utils.toHex"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_setGasFloorTarget",
+      "desc": "Changes current gas floor target.",
+      "params": [
+        "Quantity - Gas Floor Target"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        "utils.toHex"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_setMinGasPrice",
+      "desc": "Changes minimal gas price for transaction to be accepted to the queue.",
+      "params": [
+        "Quantity - Minimal gas price"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        "utils.toHex"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_setTransactionsLimit",
+      "desc": "Changes limit for transactions in queue.",
+      "params": [
+        "Quantity - New Limit"
+      ],
+      "returns": "Boolean - whether the call was successful",
+      "inputFormatters": [
+        "utils.toHex"
+      ],
+      "outputFormatter": null
+    },
+    {
+      "name": "vapcore_transactionsLimit",
+      "desc": "Changes limit for transactions in queue.",
+      "params": [],
+      "returns": "Quantity - Current max number of transactions in queue",
+      "inputFormatters": [],
+      "outputFormatter": "outputBigNumberFormatter"
+    },
+    {
+      "name": "vapcore_unsignedTransactionsCount",
+      "desc": "Returns number of unsigned transactions when running with Trusted Signer. Error otherwise",
+      "params": [],
+      "returns": "Quantity - Number of unsigned transactions",
+      "inputFormatters": [],
       "outputFormatter": null
     },
     {
